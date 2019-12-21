@@ -15,9 +15,9 @@
               <el-form-item prop="check">
                   <el-checkbox v-model="loginForm.check" >我已阅读并同意用户协议隐私条款</el-checkbox>
               </el-form-item>
-              <el-form-itrm>
+              <el-form-item>
                   <el-button @click="submitLogin" type="primary" style="width:100%">登录</el-button>
-              </el-form-itrm>
+              </el-form-item>
           </el-form>
       </el-card>
   </div>
@@ -61,8 +61,12 @@ export default {
           }).then(result => {
             // 前端缓存，登陆成功返回给我们令牌
             window.localStorage.setItem('user-token', result.data.data.token)
+            this.$router.push('/home')
           }).catch(() => {
-
+            this.$message({
+              type: 'warning',
+              message: '手机号或验证码错误！'
+            })
           })
         }
       })
