@@ -60,7 +60,7 @@ export default {
             data: this.loginForm
           }).then(result => {
             // 前端缓存，登陆成功返回给我们令牌
-            window.localStorage.setItem('user-token', result.data.data.token)
+            window.localStorage.setItem('user-token', result.data.token)
             this.$router.push('/home')
           }).catch(() => {
             this.$message({
