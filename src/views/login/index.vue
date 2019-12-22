@@ -86,6 +86,7 @@ export default {
         .login-card {
         width: 440px;
         height: 350px;
+        opacity: 0.6;
         .title {
             text-align: center;
             margin-bottom: 30px;
