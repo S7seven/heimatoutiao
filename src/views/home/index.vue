@@ -3,7 +3,7 @@
 <!-- 大容器 -->
   <el-container>
        <!-- 左侧布局 -->
-     <el-aside style="height:100vh;background-color:rgb(86, 207, 255);width:230px;  ">
+     <el-aside style="min-height:100vh;background-color:rgb(86, 207, 255);width:230px;  ">
          <layout-aside></layout-aside>
      </el-aside>
       <!-- 右侧布局 -->
