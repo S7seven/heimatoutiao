@@ -53,6 +53,7 @@ export default {
 <style lang="less" scoped>
     .layout-header {
         height: 60px;
+        background-color: rgb(124, 218, 255);
         .left {
             font-size: 20px;
             span {

@@ -8,7 +8,7 @@
      </el-aside>
       <!-- 右侧布局 -->
      <el-container>
-         <el-header>
+         <el-header style="background-color: rgb(124, 218, 255)">
            <layout-header></layout-header>
          </el-header>
          <el-main>
