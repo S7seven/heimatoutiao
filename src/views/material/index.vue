@@ -11,7 +11,7 @@
                   <el-card class="img-card" v-for="item in list" :key="item.id">
                       <img :src="item.url " alt="">
                       <el-row class="operate" type="flex" align="middle" justify="space-around">
-                        <i @click="collect0rCancel(item)" :style="{ color: item.is_collected ? 'red' : '#000'}" class="el-icon-star-off"></i>
+                        <i @click="collectOrCancel(item)" :style="{ color: item.is_collected ? 'red' : '#000'}" class="el-icon-star-off"></i>
                         <i @click="delMaterial(item.id)" class="el-icon-delete-solid"></i>
                       </el-row>
                   </el-card>
@@ -60,7 +60,8 @@ export default {
         })
       })
     },
-    collect0rCancel (item) {
+    collectOrCancel (item) {
+      console.log(!item.is_collected)
       this.$axios({
         method: 'put',
         url: `/user/images/${item.id}`,
@@ -76,18 +77,21 @@ export default {
       this.getMaterial()
     },
     changeTab () {
+      // console.log(this.activeName)
       this.page.currentPage = 1
       this.getMaterial()
     },
     getMaterial () {
+      console.log(this)
       this.$axios({
         url: '/user/images',
         params: {
           page: this.page.currentPage,
           per_page: this.page.pageSize,
-          collect: this.cativeName === 'collect'
+          collect: this.activeName === 'collect'
         }
       }).then(result => {
+        console.log(result)
         this.list = result.data.results
         this.page.total = result.data.total_count
       })
