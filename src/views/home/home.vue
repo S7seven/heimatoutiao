@@ -10,7 +10,7 @@
 export default {
   data () {
     return {
-      list: ['http://pic1.win4000.com/wallpaper/2018-08-28/5b84a6f5cd954.jpg', 'http://2e.zol-img.com.cn/product/61_940x705/74/ceUky8sQVCuo.jpg', 'http://d.hiphotos.baidu.com/zhidao/pic/item/8718367adab44aed853eeff3b31c8701a18bfbb1.jpg']
+      list: ['http://pic1.win4000.com/wallpaper/c/53bdf8d19ec7e.jpg', 'http://cdn.duitang.com/uploads/item/201112/03/20111203222251_kxerS.jpg', 'http://img2.imgtn.bdimg.com/it/u=3801383457,1361181316&fm=214&gp=0.jpg']
     }
   }
 }
