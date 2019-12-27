@@ -1,10 +1,15 @@
 <template>
-  <el-card>
+  <el-card v-loading="loading">
       <bread-crumb slot="header">
       <template slot="title">
           素材管理
       </template>
       </bread-crumb>
+      <el-row type='flex' justify="end">
+        <el-upload action="" :http-request="uoloadImg" :show-file-list="false">
+        <el-button size="small" type='primary'>上传图片</el-button>
+      </el-upload>
+      </el-row>
       <el-tabs v-model="activeName" @tab-click="changeTab">
           <el-tab-pane label="全部图片" name="all">
               <div class="img-list">
@@ -40,6 +45,7 @@
 export default {
   data () {
     return {
+      loading: false,
       activeName: 'all',
       list: [],
       page: {
@@ -50,6 +56,19 @@ export default {
     }
   },
   methods: {
+    uoloadImg (params) {
+      this.loading = true
+      let data = new FormData()
+      data.append('image', params.file)
+      this.$axios({
+        method: 'post',
+        url: '/user/images',
+        data
+      }).then(result => {
+        this.loading = false
+        this.getMaterial()
+      })
+    },
     delMaterial (id) {
       this.$confirm('您确定要删除此图片吗?').then(() => {
         this.$axios({
