@@ -25,13 +25,14 @@
       <el-row class="total">
           <span>共找到10000条符合条件的内容</span>
       </el-row>
-      <div class="article-item" v-for="item in 100" :key="item">
+      <div class="article-item" v-for="item in list" :key="item.id.toString()">
           <div class="left">
-              <img src="../../assets/img/default.jpg" alt="">
+              <!-- {{item}} -->
+              <img :src="item.cover.images.length ? item.cover.images[0] : defaultImg" alt="">
               <div class="info">
-                  <span>哈哈哈哈哈哈</span>
-                  <el-tag class="tag">标签一</el-tag>
-                  <span class="date">2019-12-24 15:07:01</span>
+                  <span>{{item.title}}</span>
+                  <el-tag :type="item.status | filterType" class="tag">{{item.status | filterStatus}}</el-tag>
+                  <span class="date">{{item.pubdate}}</span>
               </div>
           </div>
           <div class="right">
@@ -52,7 +53,40 @@ export default {
         channel_id: null,
         dateRange: []
       },
-      channels: []
+      channels: [],
+      list: [],
+      defaultImg: require('../../assets/img/default.jpg')
+    }
+  },
+  filters: {
+    filterStatus (value) {
+      switch (value) {
+        case 0:
+          return '草稿'
+        case 1:
+          return '待审核'
+        case 2:
+          return '已发表'
+        case 3:
+          return '审核失败'
+
+        default:
+          break
+      }
+    },
+    filterType (value) {
+      switch (value) {
+        case 0:
+          return 'warning'
+        case 1:
+          return 'info'
+        case 2:
+          return ''
+        case 3:
+          return 'danger'
+        default:
+          break
+      }
     }
   },
   methods: {
@@ -62,12 +96,21 @@ export default {
       }).then(result => {
         this.channels = result.data.channels
       })
+    },
+    getArticles () {
+      this.$axios({
+        url: '/articles'
+      }).then(result => {
+        this.list = result.data.results
+      })
     }
   },
   created () {
     this.getChannels()
+    this.getArticles()
   }
 }
+
 </script>
 
 <style lang="less" scoped>
