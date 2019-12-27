@@ -25,6 +25,9 @@ const routes = [{
     path: 'comment',
     component: () => import('../views/comment')
   }, {
+    path: 'articles',
+    component: () => import('../views/articles')
+  }, {
     path: 'material',
     component: () => import('../views/material')
   }]
