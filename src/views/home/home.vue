@@ -10,7 +10,7 @@
 export default {
   data () {
     return {
-      list: ['http://pic1.win4000.com/wallpaper/c/53bdf8d19ec7e.jpg', 'http://picture.ik123.com/uploads/allimg/170821/3-1FR1160213.jpg', 'http://pic1.win4000.com/wallpaper/2019-01-14/5c3c4a20d964b.jpg']
+      list: ['http://pic1.win4000.com/wallpaper/c/53bdf8d19ec7e.jpg', 'http://img1.pconline.com.cn/piclib/200902/03/batch/1/21752/1233625338917e8x7t51w2e.jpg', 'http://pic1.win4000.com/wallpaper/2019-01-14/5c3c4a20d964b.jpg']
     }
   }
 }
