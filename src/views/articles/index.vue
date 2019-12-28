@@ -23,7 +23,7 @@
           </el-form-item>
       </el-form>
       <el-row class="total">
-          <span>共找到10000条符合条件的内容</span>
+          <span>共找到{{page.total}}条符合条件的内容</span>
       </el-row>
       <div class="article-item" v-for="item in list" :key="item.id.toString()">
           <div class="left">
@@ -37,8 +37,7 @@
           </div>
           <div class="right">
               <span><i class="el-icon-edit"></i>修改</span>
-               <!-- @click="delMaterial(item.id)" -->
-              <span><i class="el-icon-delete"></i>删除</span>
+              <span @click="delMaterial(item.id)"><i class="el-icon-delete"></i>删除</span>
           </div>
       </div>
       <el-row type='flex' justify="center" align="middle" style="height:60px">
@@ -103,20 +102,20 @@ export default {
     }
   },
   methods: {
-    // delMaterial (id) {
-    //   this.$confirm('是否要删除该文章?').then(() => {
-    //     this.$axios({
-    //       method: 'delete',
-    //       url: `/articles/${id.toString()}`
-    //     }).then(result => {
-    //       this.$message({
-    //         type: 'success',
-    //         message: '删除成功'
-    //       })
-    //       this.getConditionArticle()
-    //     })
-    //   })
-    // },
+    delMaterial (id) {
+      this.$confirm('是否要删除该文章?').then(() => {
+        this.$axios({
+          method: 'delete',
+          url: `/articles/${id.toString()}`
+        }).then(result => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.getConditionArticle()
+        })
+      })
+    },
     changPage (newPage) {
       this.page.currentPage = newPage
       this.getConditionArticle()
