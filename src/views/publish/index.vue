@@ -62,6 +62,26 @@ export default {
       }
     }
   },
+  // beforeRouteUodate (to, from, next) {
+  //   next()
+  // },
+  watch: {
+    $route: function (to, from) {
+      if (to.params.articelId) {
+
+      } else {
+        this.formData = {
+          title: '',
+          content: '',
+          cover: {
+            type: 0,
+            images: []
+          },
+          channel_id: null
+        }
+      }
+    }
+  },
   methods: {
     getChannels () {
       this.$axios({
@@ -87,10 +107,19 @@ export default {
           })
         }
       })
+    },
+    getArticleById (articleId) {
+      this.$axios({
+        url: `/articles/${articleId}`
+      }).then(result => {
+        this.formData = result.data
+      })
     }
   },
   created () {
     this.getChannels()
+    let { articleId } = this.$route.params
+    articleId && this.getArticleById(articleId)
   }
 }
 </script>
