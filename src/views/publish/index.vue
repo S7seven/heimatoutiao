@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card v-loading='loading'>
       <bread-crumb slot="header">
         <template slot="title">
             发布文章
@@ -10,12 +10,12 @@
               <el-input v-model="formData.title" style="width:60%"></el-input>
           </el-form-item>
           <el-form-item prop="content" label="内容">
-              <el-input
+              <quill-editor
               v-model="formData.content"
-              type="textarea"
-              :rows="4"></el-input>
+              style="height:300px"
+              ></quill-editor>
           </el-form-item>
-          <el-form-item prop="cover" label="封面">
+          <el-form-item style="margin-top:120px" prop="cover" label="封面">
               <el-radio-group v-model="formData.cover.type">
                   <el-radio :label="1">单图</el-radio>
                   <el-radio :label="3">三图</el-radio>
@@ -41,6 +41,7 @@
 export default {
   data () {
     return {
+      loading: false,
       channels: [],
       formData: {
         title: '',
@@ -80,8 +81,18 @@ export default {
           channel_id: null
         }
       }
+    },
+    'foemData.coverr,type': function () {
+      if (this.formData.cover.type === 0 || this.formData.cover.type === -1) {
+        this.formData.cover.images = []
+      } else if (this.formData.cover.type === 1) {
+        this.formData.cover.images = ['']
+      } else if (this.formData.cover.type === 3) {
+        this.formData.cover.images = ['', '', '']
+      }
     }
   },
+
   methods: {
     getChannels () {
       this.$axios({
@@ -136,9 +147,11 @@ export default {
       })
     },
     getArticleById (articleId) {
+      this.loading = true
       this.$axios({
         url: `/articles/${articleId}`
       }).then(result => {
+        this.loading = false
         this.formData = result.data
       })
     }
