@@ -1,9 +1,11 @@
 <template>
   <div class="cover-image">
-  <div @click="openDialog" v-for="(item,index) in list" :key="index" class="cover-image-item">
+  <div @click="openDialog(index)" v-for="(item,index) in list" :key="index" class="cover-image-item">
     <img :src="item ? item : defaultImg" alt="">
   </div>
-  <el-dialog :visible="dialogVisible" @close="closeDialog" title="选择封面图片"></el-dialog>
+  <el-dialog :visible="dialogVisible" @close="closeDialog" title="">
+    <select-image @selectOneImg="receiveImg"></select-image>
+  </el-dialog>
   </div>
 </template>
 
@@ -13,12 +15,18 @@ export default {
   data () {
     return {
       defaultImg: require('../../assets/img/pic_bg.png'),
-      dialogVisible: false
+      dialogVisible: false,
+      selectIndex: -1
     }
   },
   methods: {
-    openDialog () {
+    receiveImg (url) {
+      this.$emit('selectToeImg', url, this.selectIndex)
+      this.closeDialog()
+    },
+    openDialog (index) {
       this.dialogVisible = true
+      this.selectIndex = index
     },
     closeDialog () {
       this.dialogVisible = false
