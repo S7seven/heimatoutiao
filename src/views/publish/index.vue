@@ -93,9 +93,10 @@ export default {
     publishArticle (draft) {
       this.$refs.publishForm.validate(isOK => {
         if (isOK) {
+          let { articleId } = this.$route.params
           this.$axios({
-            url: '/articles',
-            method: 'post',
+            url: articleId ? `/articles/${articleId}` : '/articles',
+            method: articleId ? 'put' : 'post',
             params: { draft },
             data: this.formData
           }).then(() => {
@@ -105,6 +106,32 @@ export default {
             })
             this.$router.push('/home/articles')
           })
+          // if (articleId) {
+          //   this.$axios({
+          //     url : `/articles/${articleId}`
+          //     params: { draft },
+          //     data: this.formData
+          //   }).then(() => {
+          //     this.$message({
+          //       type: 'success',
+          //       message: '保存成功'
+          //     })
+          //     this.$router.push('/home/articles')
+          //   })
+          // } else {
+          //   this.$axios({
+          //     url: '/articles',
+          //     method: 'post',
+          //     params: { draft },
+          //     data: this.formData
+          //   }).then(() => {
+          //     this.$message({
+          //       type: 'success',
+          //       message: '保存成功'
+          //     })
+          //     this.$router.push('/home/articles')
+          //   })
+          // }
         }
       })
     },
